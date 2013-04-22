@@ -44,7 +44,6 @@ public class MainUI extends JFrame {
 
 	public MainUI() {
 		setLayout(new BorderLayout());
-		setTitle("Password Protection");
 		setSize(480, 320);
 
 		// make window in the center of the screen.
@@ -75,6 +74,8 @@ public class MainUI extends JFrame {
 		initUI();
 		createMenu();
 		updateUI();
+		
+		setTitle(mCurrentPasswordFile.getName());
 	}
 
 	private void updateUI() {
@@ -107,6 +108,9 @@ public class MainUI extends JFrame {
 						mPassword = new Password(passowordFile);
 						mPassword.loadPassword();
 						updateUI();
+						//update title
+						setTitle(passowordFile.getName());
+						
 						saveChoice(passowordFile);
 					}
 
