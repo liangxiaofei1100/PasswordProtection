@@ -1,12 +1,16 @@
 package com.alex.passwordprotection;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -27,6 +31,9 @@ public class MainUI extends JFrame {
 
 	private JLabel mAccountTextLabel;
 	private JTextArea mResulTextArea;
+	//add by yuri
+	private JTextArea mLocationArea;
+	private JTextArea mToastArea;
 	private ArrayList<JButton> mSelectedButtons = new ArrayList<JButton>();
 
 	private Password mPassword;
@@ -167,6 +174,8 @@ public class MainUI extends JFrame {
 							return;
 						} else {
 							mSelectedButtons.add(button);
+							//show location
+							mLocationArea.append(button.getText() + ",");
 							mResulTextArea.append(mPassword.getPassword(row,
 									column));
 							button.setBackground(Color.GREEN);
@@ -196,13 +205,43 @@ public class MainUI extends JFrame {
 				}
 				mSelectedButtons.clear();
 				mResulTextArea.setText("");
+				mLocationArea.setText("");
 			}
 		});
 		panel.add(button);
-
+		
+		//add by yuri
+		mLocationArea = new JTextArea("");
+		mLocationArea.setEditable(false);
+		panel.add(mLocationArea);
+		
 		mResulTextArea = new JTextArea("");
 		mResulTextArea.setEditable(false);
 		panel.add(mResulTextArea);
+		
+		//add by yuri;copy button
+		final JButton copyBtn = new JButton("Copy");
+		copyBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//½«×Ö·û´®¸´ÖÆµ½¼ôÇÐ°å
+				if ("".equals(mResulTextArea.getText())) {
+					mToastArea.setText("Password is null!");
+				}else {
+					Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();
+					Transferable tText = new StringSelection(mResulTextArea.getText());
+					clip.setContents(tText, null);
+				}
+				
+			}
+		});
+		panel.add(copyBtn);
+		
+		//toast text
+		mToastArea = new JTextArea("");
+		mToastArea.setEditable(false);
+		panel.add(mToastArea);
+		
 		return panel;
 	}
 
