@@ -86,6 +86,7 @@ public class MainUI extends JFrame {
 		}
 
 		mResulTextArea.setText("");
+		mLocationArea.setText("");
 
 		for (JButton button : mSelectedButtons) {
 			button.setBackground(DEFAULT_BUTTON_COLOR);
