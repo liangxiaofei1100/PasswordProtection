@@ -46,10 +46,11 @@ public class MainUI extends JFrame {
 		setLayout(new BorderLayout());
 		setSize(480, 320);
 
-		// make window in the center of the screen.
+		// make window in the right of the screen.
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkit.getScreenSize();
-		int left = (screenSize.width - getSize().width) / 2;
+		
+		int left = (screenSize.width - getSize().width);
 		int top = (screenSize.height - getSize().height) / 2;
 		setLocation(left, top);
 
